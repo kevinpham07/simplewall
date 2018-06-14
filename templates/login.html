@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>LOGIN PAGE</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+	</head>
+	<body>
+		<div class="container">
+			<form class="col-md-4 d-inline-block align-top offset-md-4" action="/login" method="post">
+				<h1>LOGIN HERE!</h1>
+				{% with messages = get_flashed_messages(category_filter=["login"]) %}
+					{% if messages %}
+						{% for message in messages %}
+							<p class="text-danger">{{ message }}</p>
+						{% endfor %}
+					{% endif %}
+				{% endwith %}
+				<div class="form-group">
+					<label>Email</label>
+					<input class="form-control" type="text" name="email">
+				</div>
+				<div class="form-group">
+					<label>Password</label>
+					<input class="form-control" type="password" name="password">	
+				</div>
+				<button type="submit" class="btn btn-primary">LOGIN!</button>
+			</form>
+		</div>
+	</body>
+</html>	

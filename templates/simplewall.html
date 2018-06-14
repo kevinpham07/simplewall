@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>SIMPLE WALL</title>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+	</head>
+	<body>
+		<div class="container">
+			<div class="border-bottom">
+				<h2 class="d-inline-block">CodingDojo Wall (Simplified)</h2>
+				<div class="text-right align-top">
+					<p class="d-inline-block">Welcome {{ session["name"] }}!</p>
+					<a href="/logout">logout</a>
+				</div>
+			</div>
+			<div class="col-md-5 d-inline-block align-top">
+				<ul class="list-unstyled">
+					<li><h4>{{ count1[0]["messages"] }} Messages for you {{ session["name"] }}</h4></li>
+					<ul>
+						{% for msgs in msg %}
+						<div>
+							<li class="list-inline-item">{{ msgs["first_name"]}} said at ({{ msgs["created_at"]}}):</li>
+							<ul>
+								<li class="list-inline-item">{{ msgs["content"] }}<a href="/delete/{{ msgs['id'] }}">delete</a></li>
+							</ul>
+						</div>
+						{% endfor %}
+					</ul>
+				</ul>
+			</div>
+			<div class="col-md-6 d-inline-block">
+				<h4>Send a message.</h4>
+				You have sent a total of {{ count[0]["messages"] }} messages so far.
+				<br>
+				{% for user in unique %}	
+				<div>
+					<p class="d-inline-block align-top col-md-2">{{ user["first_name"] }}</p>
+					<form action="/message" method="post">
+						<input type="hidden" name="friend_id" value="{{ user['id'] }}">
+						<textarea class="col-md-6" type="text" name="message"></textarea>
+						<input type="submit" class="btn btn-primary align-top" value="Submit">
+					</form>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</body>
+</html>
